@@ -1,9 +1,9 @@
 package com.example.springsecurityjwt.common.security;
 
+import com.example.springsecurityjwt.enumType.AuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import java.security.AuthProvider;
 import java.util.Date;
 import java.util.HashMap;
 import io.jsonwebtoken.*;
@@ -16,12 +16,21 @@ public class SecurityUtil {
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 2l; // 2hours
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 30l; // 30days
 
-    public String crateAccessToken(String userId, AuthProvider provider, String accessToken){
+    public String createAccessToken(String userId, AuthProvider provider, String accessToken){
         HashMap<String, Object> claim = new HashMap<>();
         claim.put("userId", userId);
         claim.put("provider", provider);
         claim.put("access_token", accessToken);
         return createJwt("ACCESS_TOKEN", ACCESS_TOKEN_EXPIRATION_TIME, claim);
+    }
+
+    public String createRefreshToken(String userId, AuthProvider provider, String refreshToken){
+        HashMap<String, Object> claim = new HashMap<>();
+        claim.put("userId", userId);
+        claim.put("provider", provider);
+        claim.put("refreshToken", refreshToken);
+        return createJwt("REFRESH_TOKEN", REFRESH_TOKEN_EXPIRATION_TIME, claim);
+
     }
 
     public String createJwt(String subject, Long expiration, HashMap<String, Object> claim){

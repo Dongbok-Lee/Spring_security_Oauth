@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: local
+    include: oauth2
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/securityjwt?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: typoon0820
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create

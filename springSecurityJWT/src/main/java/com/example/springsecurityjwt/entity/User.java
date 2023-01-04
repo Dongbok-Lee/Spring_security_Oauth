@@ -1,5 +1,6 @@
 package com.example.springsecurityjwt.entity;
 
+import com.example.springsecurityjwt.enumType.AuthProvider;
 import com.example.springsecurityjwt.enumType.Role;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,13 +29,18 @@ public class User extends BaseTimeEntity{
     @Column(nullable = false)
     private Role role;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AuthProvider authProvider;
+
     @Builder
-    public User(String id, String nickname, String email, String profileImageUrl, Role role) {
+    public User(String id, String nickname, String email, String profileImageUrl, Role role, AuthProvider authProvider) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.profileImageUrl = profileImageUrl;
         this.role = role;
+        this.authProvider = authProvider;
     }
 
     public User update(String name, String picture){
